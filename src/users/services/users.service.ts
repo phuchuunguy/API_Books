@@ -24,19 +24,23 @@ export class UsersService {
     return this.userRepo.save(user);
   }
 
-  findAll() {
+  async findAll() {
     return this.userRepo.find();
   }
 
-  findByUsername(username: string) {
+  async findByUsername(username: string) {
     return this.userRepo.findOne({where: {username}});
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  async findOne(id: number) {
+    return this.userRepo.findOne({ where: { id } });
+  }
+
+  async update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} user`;
   }
 }

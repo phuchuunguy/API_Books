@@ -1,7 +1,5 @@
 import { CategoriesModule } from './categories/modules/categories.module';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BooksModule } from './books/modules/books.module';
 import { Book } from './books/entity/book.entity';
@@ -27,8 +25,6 @@ import { User } from './users/entity/user.entity';
     UsersModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 }) 
 
 export class AppModule {}

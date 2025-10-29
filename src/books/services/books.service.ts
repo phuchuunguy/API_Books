@@ -12,14 +12,33 @@ export class BookService {
         private repo: Repository<Book>,
     ) {}
 
+    async findAll(page = 1, limit = 5) {
+        const skip = (page - 1) * limit;
+        const [book, total] = await this.repo.findAndCount({
+            relations: ['category'],
+            skip,
+            take: limit,
+            order: {id: 'DESC'},
+        });
+
+        return {
+            data: book,
+            meta: {
+                total,
+                page,
+                limit,
+                totalPages: Math.ceil(total/limit),}
+        };
+    }
+
     create(dto: CreateBookDto) {
         const book = this.repo.create(dto);
         return this.repo.save(book);
     }
 
-    findAll() {
-        return this.repo.find({relations: ['category']});
-    }
+    // findAll() {
+    //     return this.repo.find({relations: ['category']});
+    // }
 
     async findOne(id: number) {
         const book = await this.repo.findOne({where: {id}, relations: ['category']});

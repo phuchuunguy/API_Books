@@ -96,3 +96,46 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Docker
+
+### Build and run with Docker
+
+```bash
+# Build image
+docker build -t quanlybook:latest .
+
+# Run container (requires a running Postgres)
+docker run --rm -p 3000:3000 \
+  -e NODE_ENV=production \
+  -e PORT=3000 \
+  -e DB_HOST=host.docker.internal \
+  -e DB_PORT=5432 \
+  -e DB_USER=admin \
+  -e DB_PASSWORD=admin \
+  -e DB_NAME=booksdb \
+  --name quanlybook-app quanlybook:latest
+```
+
+### Using docker-compose (recommended)
+
+1. Copy `env.example` to `.env` and adjust values if needed.
+
+```bash
+cp env.example .env
+```
+
+2. Start services:
+
+```bash
+docker compose up -d --build
+```
+
+- App: http://localhost:3000
+- Postgres: mapped to localhost:5432
+
+To stop:
+
+```bash
+docker compose down
+```
